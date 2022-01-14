@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin login</title>
-    <link rel="stylesheet" href="/css/admin.css">
+    <title>Voter login</title>
+    <link rel="stylesheet" href="/css/voterlogin.css">
 </head>
 <body>
     <header>
-        <h1>Admin log in</h1>
+        <h1>Login with your Voter ID</h1>
         <a href="/">Go back</a>
     </header>
     <div class="login">
-        <form action="/inde" method="post">
-            <input type="text" placeholder="Enter Username" name="usr" id="usr" required>
-            <input type="password" name="pass" id="pass" placeholder="Enter password" required>
+        <form action="/totalvotes" method="post">
+            <input type="number" name="id" id="id" placeholder="Enter voter ID">
+            <input type="text" name="name" id="name" placeholder="Enter you Name">
             <input type="submit" value="Submit">
-            <button name="logout">Logout</button>
         </form>
     </div>
 </body>
