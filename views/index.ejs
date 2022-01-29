@@ -2,41 +2,37 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voting System</title>
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/index.css" />
 </head>
 
 <body>
     <main id="bg">
         <div class="box">
             <div id="left">
-                <h1>
-                    Vote Now
-                </h1>
-                <h2>
-                    For the candidate of your choice
-                </h2>
-<div class="button">
-    <a href="/admin">Insert/Delete</a>
-    <a href="/voterlogin">Total votes</a>
-</div>
+                <h1>Vote Now</h1>
+                <h2>For the candidate of your choice</h2>
+                <div class="button">
+                    <a href="/admin" id="admin">Insert/Delete</a>
+                    <a href="/voterlogin" id="votes">Total votes</a>
+                </div>
             </div>
             <div id="right">
                 <form action="/" method="POST" id="regform">
                     <div id="row-1">
-                        <input type="number" placeholder="Enter voter id" id="id" name="id" required>
-                        <input type="text" placeholder="Enter name" id="name" name="name" required>
+                        <input type="number" placeholder="Enter voter id" id="id" name="id" required />
+                        <input type="text" placeholder="Enter name" id="name" name="name" required />
                     </div>
                     <div id="row-2">
-                        <input type="number" placeholder="Enter phone number" id="phno" name="phno" required>
-                        <input type="email" placeholder="Enter email" id="email" name="email" required>
+                        <input type="number" placeholder="Enter phone number" id="phno" name="phno" required />
+                        <input type="email" placeholder="Enter email" id="email" name="email" required />
                     </div>
                     <div id="row-3">
-                        <input type="number" placeholder="Enter age" id="age" name="age" min="18" max="100" required>
-                        <input type="text" placeholder="Enter address" id="add" name="add" required>
+                        <input type="number" placeholder="Enter age" id="age" name="age" min="18" max="100" required />
+                        <input type="text" placeholder="Enter address" id="add" name="add" required />
                     </div>
                     <div id="row-4">
                         <select name="center" id="center">
@@ -46,13 +42,12 @@
                                 </option>
                                 <%}%>
                         </select>
-                        <input type="submit" value="Submit" onclick="alert('data entered')" id="btn">
+                        <input type="submit" value="Submit" onclick="alert('data entered')" id="btn" />
                     </div>
                 </form>
             </div>
         </div>
     </main>
-
 </body>
 
 </html>
