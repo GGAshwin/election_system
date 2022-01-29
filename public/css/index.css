@@ -24,7 +24,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   background-color: black;
-  background-image: #FF0000;
+  background-image: #ff0000;
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url("data:image/svg+xml;utf8, %3Csvg width='100%25' height='100%25' viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg' %3E %3Cdefs%3E %3CradialGradient id='radialGradientId' r='100%25' cx='50%25' cy='50%25' %3E %3Cstop offset='0%25' stop-color='%23FF0037' /%3E %3Cstop offset='100%25' stop-color='%23ff90a8' /%3E %3C/radialGradient%3E %3CclipPath id='shape'%3E %3Cpath fill='currentColor' d='M772,662.5Q688,825,487,848Q286,871,254,685.5Q222,500,284.5,368Q347,236,502.5,231.5Q658,227,757,363.5Q856,500,772,662.5Z'%3E%3C/path%3E %3C/clipPath%3E %3C/defs%3E %3Cg clip-path='url(%23shape)'%3E %3Cpath fill='url(%23radialGradientId)' d='M772,662.5Q688,825,487,848Q286,871,254,685.5Q222,500,284.5,368Q347,236,502.5,231.5Q658,227,757,363.5Q856,500,772,662.5Z' /%3E %3C/g%3E %3C/svg%3E");
@@ -164,10 +164,15 @@ input {
   border: 2px solid;
 }
 
-select, option {
+select,
+option {
   padding: 5px;
   border: 2px solid;
   border-radius: 5px;
+}
+
+option {
+  color: black;
 }
 
 #btn {
@@ -183,5 +188,152 @@ select, option {
 
 .button {
   margin-top: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    margin: 0;
+  }
+  #bg,
+  .box,
+  #left,
+  #right {
+    display: block !important;
+  }
+  #bg {
+    position: relative;
+  }
+  .box {
+    /* Rectangle 1 */
+    width: 309px;
+    height: 573px;
+    background-color: black;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    background: rgba(207, 203, 198, 0.83);
+    -webkit-box-shadow: 0px 4px 4px rgba(24, 101, 157, 0.63), inset 0px 4px 4px rgba(24, 125, 157, 0.75);
+            box-shadow: 0px 4px 4px rgba(24, 101, 157, 0.63), inset 0px 4px 4px rgba(24, 125, 157, 0.75);
+    border-radius: 41px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    display: block;
+  }
+  #left h1 {
+    position: absolute;
+    width: 160px;
+    height: 49.09px;
+    left: 80px;
+    top: 35px;
+  }
+  #left h2 {
+    position: absolute;
+    width: 250px;
+    height: 49.09px;
+    left: 30px;
+    top: 74px;
+    text-align: center;
+  }
+  #left .button {
+    position: absolute;
+    width: 100%;
+    height: 48px;
+    top: 128px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #id {
+    position: absolute;
+    width: 170px;
+    height: 36px;
+    left: 66px;
+    top: 203px;
+    border-radius: 21px;
+    padding: 0;
+  }
+  #name {
+    position: absolute;
+    width: 170px;
+    height: 35px;
+    left: 66px;
+    top: 254px;
+    border-radius: 21px;
+    padding: 0;
+  }
+  #phno {
+    position: absolute;
+    width: 170px;
+    height: 35px;
+    left: 66px;
+    top: 315px;
+    padding: 0;
+    border-radius: 21px;
+  }
+  #email {
+    position: absolute;
+    width: 170px;
+    height: 35px;
+    left: 66px;
+    top: 376px;
+    padding: 0;
+    border-radius: 21px;
+  }
+  #age {
+    position: absolute;
+    width: 170px !important;
+    height: 35px;
+    left: 66px;
+    top: 437px;
+    padding: 0;
+    border-radius: 21px;
+  }
+  #add {
+    position: absolute;
+    width: 170px;
+    height: 35px;
+    left: 66px;
+    top: 493px;
+    padding: 0;
+    border-radius: 21px;
+  }
+  #id, #age, #email, #phno, #name, #add {
+    padding-left: 5px;
+  }
+  #center {
+    position: absolute;
+    width: 78px;
+    height: 35px;
+    left: 70px;
+    top: 554px;
+  }
+  #btn {
+    position: absolute;
+    width: 76px;
+    height: 35px;
+    left: 160px;
+    top: 554px;
+    text-align: center;
+    padding: 0;
+  }
+  #regform, #row-1, #row-2, #row-3, #row-4, #right {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  #right {
+    height: 0 !important;
+    width: 0 !important;
+  }
 }
 /*# sourceMappingURL=index.css.map */
