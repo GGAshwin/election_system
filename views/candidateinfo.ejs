@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Info</title>
+    <link rel="stylesheet" href="/css/candidateInfo.css">
+</head>
+
+<body>
+    <header>
+        <a href="/">Home</a>
+    </header>
+    <main>
+        <div class="card">
+            <img src="/images/download.jpg"
+                alt="John" style="width:100%">
+            <h1>
+                <%= can_info[0].candidate_name %>
+            </h1>
+            <p class="title">
+                <%= can_info[0].candidate_id %>
+            </p>
+            <p>
+                <%= can_info[0].party_name %> party representative
+            </p>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <p><button onclick="navigator.clipboard.writeText('<%- can_info[0].email %>'),alert('E-mail has been copied to the Clipboard')">Contact</button></p>
+        </div>
+    </main>
+</body>
+
+</html>
