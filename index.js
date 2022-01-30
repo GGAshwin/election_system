@@ -72,7 +72,7 @@ primary key(username)
 );`
 //db.run for creation and insertion
 //table creation
-app.get('/create',async(req,res)=>{
+/*app.get('/create',async(req,res)=>{
     await db.run(create_voter,(err)=>{
         (err)?console.log(err):console.log("Voter table created")    
     
@@ -99,9 +99,10 @@ app.get('/create',async(req,res)=>{
     
     })
     res.json("tables created successfully")
-})
+})*/
 
-app.get('/drop',async(req,res)=>{
+//Table drop
+/*app.get('/drop',async(req,res)=>{
     await db.run(`drop table if exists voter`,(err)=>{
         (err)?res.json({error:err}):console.log('Voter table dropped')
     })
@@ -121,12 +122,12 @@ app.get('/drop',async(req,res)=>{
         (err)?res.json({error:err}):console.log('admin table dropped')
     })
     res.json("Tables Dropped Successfully")
-})
+})*/
 
 var can_id=69
 
 //db.run(`insert into voting_center(voting_center_id,voting_ceter_name,location) values (10,'Ladyhill','Ladyhill'),(20,'Bundar','Bundar'),(30,'CHS','CHS'),(40,'Car st','Car st')`)
-
+/*Testing endpoints
 app.get('/test/:id',async(req,res)=>{
  let id=await req.params.id;
  let sql
@@ -156,7 +157,7 @@ app.get('/test/:id',async(req,res)=>{
  db.all(sql,async(err,rows)=>{
    await res.json(rows)
  })
-})
+})*/
 
 app.get('/',(req,res)=>{
     db.all(`select location from voting_center`,(err,rows)=>{
@@ -551,6 +552,17 @@ app.get('/totalvotes',(req,res)=>{
         }
         else{
         res.render('totalvotes',{votes:rows})
+        }
+    })
+})
+
+//candidate info
+app.get('/candidate/:id',(req,res)=>{
+db.all(`select *,party_name from candidate,party where candidate_id=${req.params.id} and candidate.party_id=party.party_id `,async(err,rows)=>{
+        if(err)res.render(err)
+        else{
+       await console.log(rows)
+        res.render('candidateinfo',{can_info:rows})
         }
     })
 })

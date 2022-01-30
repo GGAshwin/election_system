@@ -34,7 +34,7 @@
                     <%= votes[i].candidate_id %>
                 </td>
                 <td>
-                    <%= votes[i].candidate_name %>
+                    <a href="/candidate/<%= votes[i].candidate_id %>" style="text-decoration: none;"><%= votes[i].candidate_name %></a>
                 </td>
                 <td>
                     <%= votes[i].no_of_votes %>
