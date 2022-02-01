@@ -15,7 +15,7 @@
         <a href="/insertcan" class="btn">Insert candidate</a>
         <a href="/insertcenter" class="btn">Insert center</a>
         <a href="/insertparty" class="btn">Insert party</a>
-        <a href="/" class="btn">Home</a>
+        <a href="/" class="btn">Show Tables</a>
         <a href="/admin" class="btn" id="signout">Sign out</a>
     </div>
         <div class="delete-btn">
@@ -23,13 +23,9 @@
             <a href="/deletecenter" class="btnd">Delete Center</a>
             <a href="/deletevoter" class="btnd">Delete Voter</a>
             <a href="/deletepar" class="btnd">Delete Party</a>
-            <form action="/inde" method="post" style="display: inline-block;">
-                <input type="submit" name="dvote" value="Delete All Votes" onclick="alert('All voted deleted')" class="btnd"
+            <form action="/deleteallvotes" method="post" style="display: inline-block;">
+                <input type="submit" name="dvote" value="Delete All Votes" onclick="alert('All votes and voters deleted')" class="btnd"
                     id="sub">
-            </form>
-            <form action="/inde" method="post" style="display: inline-block;">
-                <input type="submit" name="dvoter" value="Delete All Voters" onclick="alert('All voters deleted')"
-                    class="btnd" id="sub">
             </form>
         </div>
 </main>

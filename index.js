@@ -133,40 +133,40 @@ var can_id = 69
 //db.run(`insert into voting_center(voting_center_id,voting_ceter_name,location) values (10,'Ladyhill','Ladyhill'),(20,'Bundar','Bundar'),(30,'CHS','CHS'),(40,'Car st','Car st')`)
 //Testing endpoints
 
-app.get('/test/:id',async(req,res)=>{
-    if(isloggedin){
- let id=await req.params.id;
- let sql
- switch(id){
-     case "candidate":
-         sql="select * from candidate"
-         break
-     case "voter":
-         sql="select * from voter"
-         break
-     case "vote":
-         sql="select * from vote"
-         break
-     case "center":
-         sql="select * from voting_center"
-         break
-     case "party":
-         sql="select * from party"
-         break
-     case "admin":
-         sql="select * from admin"
-         break
-     default:
-         res.json("error")
-         return
- }
- db.all(sql,async(err,rows)=>{
-   await res.json(rows)
- })
-}
-else{
-    res.render('admin')
-}
+app.get('/test/:id', async (req, res) => {
+    if (isloggedin) {
+        let id = await req.params.id;
+        let sql
+        switch (id) {
+            case "candidate":
+                sql = "select * from candidate"
+                break
+            case "voter":
+                sql = "select * from voter"
+                break
+            case "vote":
+                sql = "select * from vote"
+                break
+            case "center":
+                sql = "select * from voting_center"
+                break
+            case "party":
+                sql = "select * from party"
+                break
+            case "admin":
+                sql = "select * from admin"
+                break
+            default:
+                res.json("error")
+                return
+        }
+        db.all(sql, async (err, rows) => {
+            await res.json(rows)
+        })
+    }
+    else {
+        res.render('admin')
+    }
 })
 
 //basics of express routing
@@ -242,8 +242,8 @@ app.post('/inde', (req, res) => {
     // }
 })
 
-app.get('/invalidadmin',(req,res)=>{
-    res.render('invalidadmin',{msg:"Invalid user"})
+app.get('/invalidadmin', (req, res) => {
+    res.render('invalidadmin', { msg: "Invalid user" })
 })
 
 app.get('/logout', (req, res) => {
@@ -263,23 +263,39 @@ app.get('/inde', (req, res) => {
     }
 })
 
-app.post('/inde', (req, res) => {
-    if (req.body.dvote) {
+// app.post('/inde', (req, res) => {
+//     if (req.body.dvote) {
+//         db.run(`delete from vote,voter`, (err) => {
+//             if (err){
+//                 console.log("error")
+//                 console.log(err)
+//             }
+//             else
+//                 res.render('insert')
+//         })
+//     }
+//     else if (req.body.dvoter) {
+//         db.run(`delete from voter`, (err) => {
+//             if (err)
+//                 console.log(err)
+//             else
+//                 res.render('insert')
+//         })
+//     }
+// })
+
+//delete all votes and voters
+app.post('/deleteallvotes', (req, res) => {
+        db.run(`delete from voter`)
         db.run(`delete from vote`, (err) => {
-            if (err)
+            if (err){
+                console.log("error")
                 console.log(err)
+            }
             else
-                res.render('insert')
+                res.redirect('inde')
         })
-    }
-    else if (req.body.dvoter) {
-        db.run(`delete from voter`, (err) => {
-            if (err)
-                console.log(err)
-            else
-                res.render('insert')
-        })
-    }
+
 })
 
 app.get('/insertcan', async (req, res) => {
@@ -563,8 +579,8 @@ app.post('/totalvotes', (req, res) => {
     })
 })
 
-app.get('/invalidvoter',(req,res)=>{
-    res.render('invalidvoter',{msg:"Invalid Voter"})
+app.get('/invalidvoter', (req, res) => {
+    res.render('invalidvoter', { msg: "Invalid Voter" })
 })
 
 app.get('/totalvotes', (req, res) => {
@@ -582,18 +598,18 @@ app.get('/totalvotes', (req, res) => {
 
 //candidate info
 app.get('/candidate/:id', (req, res) => {
-    if(voterlog){
-    db.all(`select *,party_name from candidate,party where candidate_id=${req.params.id} and candidate.party_id=party.party_id `, async (err, rows) => {
-        if (err) res.render(err)
-        else {
-            await console.log(rows)
-            res.render('candidateinfo', { can_info: rows })
-        }
-    })
-}
-else if(!voterlog){
-    res.redirect('/voterlogin')
-}
+    if (voterlog) {
+        db.all(`select *,party_name from candidate,party where candidate_id=${req.params.id} and candidate.party_id=party.party_id `, async (err, rows) => {
+            if (err) res.render(err)
+            else {
+                await console.log(rows)
+                res.render('candidateinfo', { can_info: rows })
+            }
+        })
+    }
+    else if (!voterlog) {
+        res.redirect('/voterlogin')
+    }
 })
 
 app.use((req, res, next) => {
