@@ -540,6 +540,93 @@ app.post('/deletevoter', (req, res) => {
     })
 })
 
+//show data
+app.get('/inde/showdata',(req,res)=>{
+    if(isloggedin){
+    res.render('showdata')
+    }
+    else{
+        res.redirect('/admin')
+    }
+})
+
+app.get('/inde/showdata/votes', (req, res) => {
+    if(isloggedin){
+    db.all(`select * from vote`, (err, rows) => {
+        if (err) {
+            console.log(err);
+            res.render("err", { error: err });
+            return;
+        }
+        else {
+            res.render('showvotes', { votes: rows })
+        }
+    })
+}
+else{
+    res.redirect('/admin')
+}
+})
+
+app.get('/inde/showdata/voters',(req,res)=>{
+    if(isloggedin){
+    db.all(`select * from voter`,(err,rows)=>{
+        if(err){
+            console.log(err)
+            res.render('err',{error:err})
+        }
+        else{
+            res.render('showvoter',{voter_info:rows})
+        }
+    })
+}
+else{
+    res.redirect('/admin')
+}
+})
+
+app.get('/inde/showdata/party',(req,res)=>{
+if(isloggedin){    db.all(`select * from party`,(err,rows)=>{
+        if(err){
+            console.log(err)
+            res.render('err',{error:err})
+        }
+        else{
+            res.render('showparty',{party_info:rows})
+        }
+    })}
+    else{
+        res.redirect('/admin')
+    }
+})
+
+app.get('/inde/showdata/center',(req,res)=>{
+if(isloggedin){    db.all(`select * from voting_center`,(err,rows)=>{
+        if(err){
+            console.log(err)
+            res.render('err',{error:err})
+        }
+        else{
+            res.render('showcenter',{c_info:rows})
+        }
+    })}
+    else{
+        res.redirect('/admin')
+    }
+})
+
+app.get('/inde/showdata/candidate',(req,res)=>{
+    db.all(`select * from candidate`,(err,rows)=>{
+        if(err){
+            console.log(err);
+            res.render('err',{error:err})
+        }
+        else{
+            res.render('showcan',{can_info:rows})
+        }
+    })
+})
+
 /* Total vote count */
 var voterlog
 app.get('/voterlogin', (req, res) => {
