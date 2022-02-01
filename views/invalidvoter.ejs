@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter login</title>
+    <link rel="stylesheet" href="/css/voterlogin.css">
+</head>
+<body>
+    <header>
+        <h1>Login with your Voter ID</h1>
+        <a href="/">Go back</a>
+    </header>
+    <div class="login">
+        <form action="/totalvotes" method="post">
+            <input type="number" name="id" id="id" placeholder="Enter voter ID">
+            <input type="text" name="name" id="name" placeholder="Enter you Name">
+            <p style="color: rgb(136, 0, 0);font-weight: 600;"><%= msg %></p>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
