@@ -1,9 +1,12 @@
 const express=require("express")
 const app=express()
 const sqlite3 = require("sqlite3").verbose();
-const bodyParser = require("body-parser");
-const e = require("express");
-const { is } = require("express/lib/request");
+
+//what are these?
+// const bodyParser = require("body-parser");
+// const e = require("express");
+// const { is } = require("express/lib/request");
+
 const port=process.env.PORT || 3000
 app.use(express.json())
 
@@ -19,7 +22,7 @@ const db=new sqlite3.Database('./election.db',err=>{
     }
     console.log("db connected")
 })
-//db.run(`drop table voter`)
+
 
 //db.run(`PRAGMA foreign_keys=ON;`)
 const create_voter=`create table if not exists voter(
@@ -159,6 +162,11 @@ app.get('/test/:id',async(req,res)=>{
  })
 })*/
 
+//basics of express routing
+//when the user sends a get request to '/' that is the root location
+//Express will fire the following function
+//run the sql query and pass the callback rows into the index ejs
+
 app.get('/',(req,res)=>{
     db.all(`select location from voting_center`,(err,rows)=>{
         res.render('index',{loc:rows})
@@ -222,9 +230,9 @@ app.post('/inde',(req,res)=>{
                 }
         }
     })
-    if(req.body.logout){
-        isloggedin=0
-    }
+    // if(req.body.logout){
+    //     isloggedin=0
+    // }
 })
 
 app.get('/logout',(req,res)=>{
@@ -566,5 +574,9 @@ db.all(`select *,party_name from candidate,party where candidate_id=${req.params
         }
     })
 })
+
+app.use( (req, res, next)=> {
+    res.status(404).send("Sorry can't find that!")
+  })
 
 app.listen(port)
