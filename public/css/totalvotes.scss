@@ -27,6 +27,18 @@ header{
                 background-color: white;
             }
         }
+        
+    }
+}
+button{
+    text-decoration: none;
+    color: white;
+    background-color: rgb(53, 53, 53);
+    padding: 9px 15px;
+    border: none;
+    &:hover{
+        color: black;
+        background-color: white;
     }
 }
 table{

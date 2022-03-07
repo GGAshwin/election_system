@@ -43,6 +43,19 @@ header nav a:hover {
   background-color: white;
 }
 
+button {
+  text-decoration: none;
+  color: white;
+  background-color: #353535;
+  padding: 9px 15px;
+  border: none;
+}
+
+button:hover {
+  color: black;
+  background-color: white;
+}
+
 table {
   background-color: black;
 }
