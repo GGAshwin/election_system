@@ -24,8 +24,8 @@ const db = new sqlite3.Database('./election.db', err => {
     console.log("db connected")
 })
 
-
 //db.run(`PRAGMA foreign_keys=ON;`)
+
 const create_voter = `create table if not exists voter(
   voter_id int NOT NULL,
   voter_name varchar(50),
@@ -187,7 +187,7 @@ app.post('/', async (req, res, next) => {
     //console.log(req.body)
     await db.run(`insert into voter values(${await req.body.id},'${await req.body.name}','${await req.body.add}','${await req.body.email}',${await req.body.phno},${await req.body.age})`, (err) => {
         if (err) {
-            res.render('err', { error: err })
+            res.render('err', { error: "Voter ID already exists" })
         }
     }),
         await db.all(`select * from candidate`, async (err, rows) => {
@@ -251,8 +251,28 @@ app.get('/logout', (req, res) => {
     res.json("You are logged out")
 })
 
+//////////Forgot Password//////////////
 
-/* Insertions */
+app.get('/forgot', (req, res) => {
+    res.render('forgot')
+})
+
+app.post('/forgot',async(req,res)=>{
+   await db.all(`select * from admin`,(err,rows)=>{
+        if(err) res.json(err)
+        else{
+            for(i=0;i<rows.length;i++){
+                if(rows[i].username==req.body.usr){
+                    db.run(`update admin set password='${req.body.pass}' where username='${req.body.usr}'`)
+                    res.redirect('admin')
+                    break
+                }
+            }
+        }
+    })
+})
+
+/////////Insertions/////////
 
 app.get('/inde', (req, res) => {
     if (isloggedin) {
@@ -263,38 +283,18 @@ app.get('/inde', (req, res) => {
     }
 })
 
-// app.post('/inde', (req, res) => {
-//     if (req.body.dvote) {
-//         db.run(`delete from vote,voter`, (err) => {
-//             if (err){
-//                 console.log("error")
-//                 console.log(err)
-//             }
-//             else
-//                 res.render('insert')
-//         })
-//     }
-//     else if (req.body.dvoter) {
-//         db.run(`delete from voter`, (err) => {
-//             if (err)
-//                 console.log(err)
-//             else
-//                 res.render('insert')
-//         })
-//     }
-// })
+/////////delete all votes and voters/////////
 
-//delete all votes and voters
 app.post('/deleteallvotes', (req, res) => {
-        db.run(`delete from voter`)
-        db.run(`delete from vote`, (err) => {
-            if (err){
-                console.log("error")
-                console.log(err)
-            }
-            else
-                res.redirect('inde')
-        })
+    db.run(`delete from voter`)
+    db.run(`delete from vote`, (err) => {
+        if (err) {
+            console.log("error")
+            console.log(err)
+        }
+        else
+            res.redirect('inde')
+    })
 
 })
 
@@ -541,88 +541,92 @@ app.post('/deletevoter', (req, res) => {
 })
 
 //show data
-app.get('/inde/showdata',(req,res)=>{
-    if(isloggedin){
-    res.render('showdata')
+app.get('/inde/showdata', (req, res) => {
+    if (isloggedin) {
+        res.render('showdata')
     }
-    else{
+    else {
         res.redirect('/admin')
     }
 })
 
 app.get('/inde/showdata/votes', (req, res) => {
-    if(isloggedin){
-    db.all(`select * from vote`, (err, rows) => {
+    if (isloggedin) {
+        db.all(`select * from vote`, (err, rows) => {
+            if (err) {
+                console.log(err);
+                res.render("err", { error: err });
+                return;
+            }
+            else {
+                res.render('showvotes', { votes: rows })
+            }
+        })
+    }
+    else {
+        res.redirect('/admin')
+    }
+})
+
+app.get('/inde/showdata/voters', (req, res) => {
+    if (isloggedin) {
+        db.all(`select * from voter`, (err, rows) => {
+            if (err) {
+                console.log(err)
+                res.render('err', { error: err })
+            }
+            else {
+                res.render('showvoter', { voter_info: rows })
+            }
+        })
+    }
+    else {
+        res.redirect('/admin')
+    }
+})
+
+app.get('/inde/showdata/party', (req, res) => {
+    if (isloggedin) {
+        db.all(`select * from party`, (err, rows) => {
+            if (err) {
+                console.log(err)
+                res.render('err', { error: err })
+            }
+            else {
+                res.render('showparty', { party_info: rows })
+            }
+        })
+    }
+    else {
+        res.redirect('/admin')
+    }
+})
+
+app.get('/inde/showdata/center', (req, res) => {
+    if (isloggedin) {
+        db.all(`select * from voting_center`, (err, rows) => {
+            if (err) {
+                console.log(err)
+                res.render('err', { error: err })
+            }
+            else {
+                res.render('showcenter', { c_info: rows })
+            }
+        })
+    }
+    else {
+        res.redirect('/admin')
+    }
+})
+
+app.get('/inde/showdata/candidate', (req, res) => {
+    db.all(`select * from candidate`, (err, rows) => {
         if (err) {
             console.log(err);
-            res.render("err", { error: err });
-            return;
+            res.render('err', { error: err })
         }
         else {
-            res.render('showvotes', { votes: rows })
-        }
-    })
-}
-else{
-    res.redirect('/admin')
-}
-})
-
-app.get('/inde/showdata/voters',(req,res)=>{
-    if(isloggedin){
-    db.all(`select * from voter`,(err,rows)=>{
-        if(err){
-            console.log(err)
-            res.render('err',{error:err})
-        }
-        else{
-            res.render('showvoter',{voter_info:rows})
-        }
-    })
-}
-else{
-    res.redirect('/admin')
-}
-})
-
-app.get('/inde/showdata/party',(req,res)=>{
-if(isloggedin){    db.all(`select * from party`,(err,rows)=>{
-        if(err){
-            console.log(err)
-            res.render('err',{error:err})
-        }
-        else{
-            res.render('showparty',{party_info:rows})
-        }
-    })}
-    else{
-        res.redirect('/admin')
-    }
-})
-
-app.get('/inde/showdata/center',(req,res)=>{
-if(isloggedin){    db.all(`select * from voting_center`,(err,rows)=>{
-        if(err){
-            console.log(err)
-            res.render('err',{error:err})
-        }
-        else{
-            res.render('showcenter',{c_info:rows})
-        }
-    })}
-    else{
-        res.redirect('/admin')
-    }
-})
-
-app.get('/inde/showdata/candidate',(req,res)=>{
-    db.all(`select * from candidate`,(err,rows)=>{
-        if(err){
-            console.log(err);
-            res.render('err',{error:err})
-        }
-        else{
-            res.render('showcan',{can_info:rows})
+            res.render('showcan', { can_info: rows })
         }
     })
 })

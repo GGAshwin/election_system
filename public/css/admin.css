@@ -78,7 +78,28 @@ header a:hover {
   border: 2px solid;
 }
 
+input[type=submit], button {
+  margin-right: 35px;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
 input[type=submit]:hover, button:hover {
   cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+.btns {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=admin.css.map */
