@@ -50,7 +50,17 @@ header{
     }
 }
 input[type=submit],button{
+    margin-right: 35px;
+    transition: 0.5s ease;
     &:hover{
         cursor: pointer;
+        background-color: black;
+        color: white;
     }
+}
+.btns{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
