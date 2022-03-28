@@ -210,8 +210,8 @@ app.post('/vote', async (req, res) => {
 })
 //}
 
-// db.run(`insert into admin values('kini','456')`)
-//admin route
+////////////admin route////////////
+
 var isloggedin = 0
 app.get('/admin', (req, res) => {
     isloggedin = 0
@@ -249,6 +249,23 @@ app.get('/invalidadmin', (req, res) => {
 app.get('/logout', (req, res) => {
     isloggedin = 0
     res.json("You are logged out")
+})
+
+////////////Signup route////////////
+
+app.get('/admin/signup', (req, res) => {
+    res.render('signup')
+})
+
+app.post('/admin/signup',(req,res)=>{
+    var usr=req.body.usr
+    var pass=req.body.pass
+    db.run(`insert into admin values('${usr}','${pass}')`,(err)=>{
+        if(err)res.render('err',{error:'Username already exists'})
+        else {
+            isloggedin=1
+            res.redirect('/inde')}
+    })
 })
 
 //////////Forgot Password//////////////

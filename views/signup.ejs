@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up for admin program</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<style>
+    body{
+        background-color: #63a4ff;
+background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+    }
+    input[type="submit"]{
+        margin: 0;
+    }
+    form{
+        width: fit-content;
+    }
+</style>
+<body>
+    <header>
+        <h1>New Admin Sign up</h1>
+        <a href="/">Go back</a>
+    </header>
+    <div class="login">
+        <form action="/admin/signup" method="post">
+            <input type="text" placeholder="Enter Username" name="usr" id="usr" required>
+            <input type="password" name="pass" id="pass" placeholder="Enter password" required>
+                <input type="submit" value="Sign up">
+        </form>
+    </div>
+</body>
+</html>
