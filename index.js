@@ -50,7 +50,7 @@ const create_center = `create table if not exists voting_center(
 );`
 
 const create_candidate = `create table if not exists candidate(
-    candidate_id int,
+    candidate_id int unique,
     candidate_name varchar(50),
     party_id varchar(20) unique,
     can_address varchar(50),
