@@ -1,8 +1,8 @@
 const express = require("express");
-const { get } = require("express/lib/response");
 const app = express()
 const sqlite3 = require("sqlite3").verbose();
 
+// const { get } = require("express/lib/response");
 //what are these?
 // const bodyParser = require("body-parser");
 // const e = require("express");
@@ -103,7 +103,7 @@ primary key(username)
     
     })
     res.json("tables created successfully")
-})*/
+})
 
 //Table drop
 /*app.get('/drop',async(req,res)=>{
@@ -185,13 +185,13 @@ var center
 
 app.post('/', async (req, res, next) => {
     //console.log(req.body)
+    // console.log(req.body);
     await db.run(`insert into voter values(${await req.body.id},'${await req.body.name}','${await req.body.add}','${await req.body.email}',${await req.body.phno},${await req.body.age})`, (err) => {
         if (err) {
             res.render('err', { error: "Voter ID already exists" })
         }
     }),
         await db.all(`select * from candidate`, async (err, rows) => {
-
             await res.render("vote", { name_id: rows })
         })
     id = await req.body.id
