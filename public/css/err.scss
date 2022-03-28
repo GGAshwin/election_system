@@ -21,7 +21,7 @@ body{
         padding: 10px;
         color: rgb(0, 0, 0);
     }
-    a{
+    button{
         padding: 10px;
         text-decoration: none;
         color: rgb(255, 255, 255);
@@ -29,5 +29,10 @@ body{
         padding: 10px 15px;
         font-weight: 500;
         font-size: 17px;
+        border-radius: 3px;
+        border: none;
+        &:hover{
+            cursor: pointer;
+        }
     }
 }

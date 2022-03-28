@@ -35,7 +35,7 @@ body {
   color: black;
 }
 
-.message a {
+.message button {
   padding: 10px;
   text-decoration: none;
   color: white;
@@ -43,5 +43,11 @@ body {
   padding: 10px 15px;
   font-weight: 500;
   font-size: 17px;
+  border-radius: 3px;
+  border: none;
+}
+
+.message button:hover {
+  cursor: pointer;
 }
 /*# sourceMappingURL=err.css.map */
