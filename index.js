@@ -257,16 +257,17 @@ app.get('/forgot', (req, res) => {
     res.render('forgot')
 })
 
-app.post('/forgot',async(req,res)=>{
-   await db.all(`select * from admin`,(err,rows)=>{
-        if(err) res.json(err)
-        else{
-            for(i=0;i<rows.length;i++){
-                if(rows[i].username==req.body.usr){
+app.post('/forgot', async (req, res) => {
+    await db.all(`select * from admin`, (err, rows) => {
+        if (err) res.json(err)
+        else {
+            for (i = 0; i < rows.length; i++) {
+                if (rows[i].username == req.body.usr) {
                     db.run(`update admin set password='${req.body.pass}' where username='${req.body.usr}'`)
                     res.redirect('admin')
                     break
                 }
+                res.render('err', { error: "Invalid username" })
             }
         }
     })
@@ -304,7 +305,6 @@ app.get('/insertcan', async (req, res) => {
         try {
             await db.all(`SELECT party_id FROM party`, async (err, rows) => {
                 if (err) {
-                    console.log(err);
                     res.render("err", { error: err });
                     return;
                 }
@@ -334,7 +334,7 @@ app.post('/insertcan', async (req, res) => {
     let info = req.body
     await db.run(`insert into candidate values(${info.id},'${info.name}','${info.party_id}','${info.address}','${info.mail}',${info.phno})`, (err) => {
         if (err) {
-            console.log(err);
+            err == 'Error: SQLITE_CONSTRAINT: UNIQUE constraint failed: candidate.party_id' ? err = `party id ${info.party_id} already exists` : err = `Candidate id ${info.id} already exists`
             res.render("err", { error: err });
             return;
         }
@@ -376,8 +376,13 @@ app.get('/insertparty', (req, res) => {
 })
 
 app.post('/insertparty', async (req, res) => {
-    await db.run(`insert into party values ('${req.body.par_id}','${req.body.par_name}')`)
-    res.render('insertparty')
+    await db.run(`insert into party values ('${req.body.par_id}','${req.body.par_name}')`,(err)=>{
+        if(err){
+            res.render("err",{error:`Party id ${req.body.par_id} already exists`})
+        }
+        else
+        res.render('insertparty')
+    })
 })
 
 
@@ -390,8 +395,11 @@ app.get('/insertcenter', (req, res) => {
     }
 })
 app.post('/insertcenter', async (req, res) => {
-    await db.run(`insert into voting_center values (${req.body.center_id},'${req.body.center_name}','${req.body.location}')`)
-    res.render('insertcenter')
+    await db.run(`insert into voting_center values (${req.body.center_id},'${req.body.center_name}','${req.body.location}')`,(err)=>{
+        if(err) res.render('err',{error:'Center id already exists'})
+        else
+        res.render('insertcenter')
+    })
 })
 
 /* Deletions */
